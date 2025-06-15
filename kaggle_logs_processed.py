@@ -39,7 +39,7 @@ class KaggleLogScraper:
                             }
                         ))
         except Exception as e:
-            logging.error(f"Erro ao processar {dataset_ref}: {e}"")
+            logging.error(f"Erro ao processar {dataset_ref}: {e}")
         return data
 
     def save_to_json(self, data: List[KaggleLogData]):
