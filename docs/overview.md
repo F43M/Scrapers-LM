@@ -11,7 +11,7 @@ Abaixo está um resumo do propósito de cada scraper.
 
 | Script | Finalidade |
 | ------ | ---------- |
-| `ScraperStack.py` | Coleta questões do StackOverflow via API. |
+| `ScraperStack.py` | Coleta questões do StackOverflow via API (agora com argumentos para tags, data mínima, páginas e arquivo de saída). |
 | `discord_data.py` | Exemplo de extração de mensagens do Discord. |
 | `slack_dataslack_data.py` | Exemplo de extração de mensagens do Slack. |
 | `github_issues.py` | Coleta issues de um repositório GitHub. |
