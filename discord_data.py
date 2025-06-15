@@ -1,3 +1,5 @@
+import argparse
+import asyncio
 import discord
 import json
 import logging
@@ -13,7 +15,9 @@ class DiscordData(BaseModel):
 
 class DiscordScraper:
     def __init__(self, token: str):
-        self.client = discord.Client(intents=discord.Intents.default())
+        self.client = discord.Client(
+            intents=discord.Intents(messages=True, message_content=True)
+        )
         self.token = token
         self.output_file = "discord_data.json"
         self.data = []
@@ -42,14 +46,34 @@ class DiscordScraper:
             json.dump([d.dict() for d in self.data], f, indent=2, ensure_ascii=False)
         logging.info(f"Dados salvos em {self.output_file}")
 
-    def run(self, server_id: int, channel_id: int, limit: int = 100):
+    async def run(self, server_id: int, channel_id: int, limit: int = 100):
         @self.client.event
         async def on_ready():
-            await self.fetch_messages(server_id, channel_id, limit)
-            await self.client.close()
-        self.client.run(self.token)
-        self.save_to_json()
+            try:
+                await self.fetch_messages(server_id, channel_id, limit)
+            finally:
+                await self.client.close()
 
-# Exemplo de uso
-scraper = DiscordScraper(token="SEU_BOT_TOKEN")
-scraper.run(server_id=123456789, channel_id=987654321, limit=50)
+        try:
+            await self.client.start(self.token)
+        except Exception as e:
+            logging.error(f"Erro de conexão: {e}")
+        finally:
+            await self.client.close()
+            self.save_to_json()
+
+
+async def main() -> None:
+    parser = argparse.ArgumentParser(description="Coleta mensagens do Discord")
+    parser.add_argument("--token", required=True, help="Token do bot")
+    parser.add_argument("--server", type=int, required=True, help="ID do servidor")
+    parser.add_argument("--channel", type=int, required=True, help="ID do canal")
+    parser.add_argument("--limit", type=int, default=100, help="Limite de mensagens")
+    args = parser.parse_args()
+
+    scraper = DiscordScraper(token=args.token)
+    await scraper.run(server_id=args.server, channel_id=args.channel, limit=args.limit)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
