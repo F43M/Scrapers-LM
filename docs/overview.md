@@ -13,7 +13,7 @@ Abaixo está um resumo do propósito de cada scraper.
 | ------ | ---------- |
 | `ScraperStack.py` | Coleta questões do StackOverflow via API. |
 | `discord_data.py` | Exemplo de extração de mensagens do Discord. |
-| `slack_dataslack_data.py` | Exemplo de extração de mensagens do Slack. |
+| `slack_data.py` | Exemplo de extração de mensagens do Slack. |
 | `github_issues.py` | Coleta issues de um repositório GitHub. |
 | `github_comments_data.py` | Coleta comentários de issues do GitHub. |
 | `github_wiki_data.py` | Baixa conteúdo de wikis/documentações em repositórios GitHub. |
