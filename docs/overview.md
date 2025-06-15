@@ -27,6 +27,7 @@ Abaixo está um resumo do propósito de cada scraper.
 | `generic_text_data.py` | Exemplo de uso de datasets da comunidade Hugging Face. |
 | `kaggle_logs.py` | Procura datasets públicos contendo logs na Kaggle. |
 | `kaggle_logs_processed.py` | Faz download e processa arquivos de log de um dataset da Kaggle. |
+| `kaggle_logs_cli.py` | Busca datasets, baixa logs individuais via CLI. |
 | `reddit_data.py` | Coleta posts e comentários do Reddit. |
 | `oasst_data.py` | Baixa dados do conjunto de conversas OpenAssistant. |
 
